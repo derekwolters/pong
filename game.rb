@@ -148,8 +148,9 @@ class GameWindow < Gosu::Window
     z_order = 100    
     colorB = Gosu::Color.rgb(194,244,244)
     colorG = Gosu::Color.rgb(244,194,194)
-    @font.draw score[0].to_s, center_x - offset - char_width, offset, z_order, 1 , 1, colorB
-    @font.draw score[1].to_s, center_x + offset, offset, z_order, 1 , 1, colorG
+    #@font.draw score[0].to_s, center_x - offset - char_width, offset, z_order, 1 , 1, colorB
+    @font.draw_text(score[0].to_s, center_x - offset - char_width, offset, z_order, 1 , 1, colorB)
+    @font.draw_text(score[1].to_s, center_x + offset, offset, z_order, 1 , 1, colorG)
   end
 
   def load_sounds

@@ -1,6 +1,6 @@
 # pong
 
-A pong game, written in Ruby using Gosu. Sound effects were created with [Bfxr](http://www.bfxr.net).
+A pong game, written in Ruby using Gosu.
 
 ![demo](https://raw.githubusercontent.com/subdigital/pong/master/pong.gif)
 
@@ -31,10 +31,6 @@ This is the first one.
 
 The point is to finish something, ship it and move on.
 
-## What's Next?
-
-[Tic-tac-toe](https://github.com/subdigital/tic-tac-toe)
-
 ## LICENSE
 
 Code released under the MIT License.
@@ -45,3 +41,4 @@ Game tutorial: http://crumbsofcode.com/creating-version-pong-ruby/
 Forked from: https://github.com/subdigital/pong
 Goal sound : https://notificationsounds.com
 Block sound : https://www.soundjay.com/
+Ball template: https://github.com/jankmet/gosu-ball
