@@ -4,18 +4,18 @@ class GameWindow < Gosu::Window
 
   attr_reader :score
   attr_reader :blip_sound
-  attr_reader :explosion_sound
+  attr_reader :plucky_sound
 
   def initialize
     super 640, 480
-    self.caption = "Pong"
+    self.caption = "Baby Gender Pong"
 
     margin = 20
 
-    @player = Paddle.new( margin, margin )
+    @player = PaddleB.new( margin, margin )
     @last_mouse_y = margin
 
-    @enemy = Paddle.new( self.width - Paddle::WIDTH - margin, margin)
+    @enemy = PaddleG.new( self.width - PaddleB::WIDTH - margin, margin)
 
     @ball = Ball.new( 100, 100, { :x => 4, :y => 4 } )
 
@@ -54,13 +54,13 @@ class GameWindow < Gosu::Window
       score[1] += 1
       @ball.v[:x] = 4
       flash_side(:left)
-      @explosion_sound.play
+      @plucky_sound.play
     elsif @ball.right >= self.width
       @ball.x = @enemy.left
       score[0] += 1
       @ball.v[:x] = -4
       flash_side(:right)
-      @explosion_sound.play
+      @plucky_sound.play
     end
 
     @ball.reflect_vertical if @ball.y < 0 || @ball.bottom > self.height
@@ -108,12 +108,12 @@ class GameWindow < Gosu::Window
     draw_background
 
     if @flash[:left]
-      Gosu.draw_rect 0, 0, self.width / 2, self.height, Gosu::Color::RED
+      Gosu.draw_rect 0, 0, self.width / 2, self.height, Gosu::Color.rgb(244,194,194)
       @flash[:left] = nil
     end
 
     if @flash[:right]
-      Gosu.draw_rect self.width / 2, 0, self.width, self.height, Gosu::Color::RED
+      Gosu.draw_rect self.width / 2, 0, self.width, self.height, Gosu::Color.rgb(194,244,244)
       @flash[:right] = nil
     end
 
@@ -125,14 +125,14 @@ class GameWindow < Gosu::Window
   end
 
   def draw_background
-    Gosu.draw_rect 0, 0, self.width, self.height, Gosu::Color::BLACK
+    Gosu.draw_rect 0, 0, self.width, self.height, Gosu::Color.rgb(169,169,169)
   end
 
   def draw_center_line
     center_x = self.width / 2
     segment_length = 10
     gap = 5
-    color = Gosu::Color::GREEN
+    color = Gosu::Color.rgb(92,65,65)
     y = 0
     begin
       draw_line center_x, y, color,
@@ -145,15 +145,17 @@ class GameWindow < Gosu::Window
     center_x = self.width / 2
     offset = 15
     char_width = 10
-    z_order = 100
-    @font.draw score[0].to_s, center_x - offset - char_width, offset, z_order
-    @font.draw score[1].to_s, center_x + offset, offset, z_order
+    z_order = 100    
+    colorB = Gosu::Color.rgb(194,244,244)
+    colorG = Gosu::Color.rgb(244,194,194)
+    @font.draw score[0].to_s, center_x - offset - char_width, offset, z_order, 1 , 1, colorB
+    @font.draw score[1].to_s, center_x + offset, offset, z_order, 1 , 1, colorG
   end
 
   def load_sounds
     path = File.expand_path(File.dirname(__FILE__))
     @blip_sound = Gosu::Sample.new(File.join(path, "blip.wav"))
-    @explosion_sound = Gosu::Sample.new(File.join(path, "explosion.wav"))
+    @plucky_sound = Gosu::Sample.new(File.join(path, "plucky.wav"))
   end
 end
 
@@ -214,8 +216,8 @@ class GameObject
 end
 
 class Ball < GameObject
-  WIDTH = 5
-  HEIGHT = 5
+  WIDTH = 10
+  HEIGHT = 10
 
   attr_reader :v
   def initialize(x, y, v)
@@ -237,11 +239,11 @@ class Ball < GameObject
   end
 
   def draw
-    Gosu.draw_rect x, y, WIDTH, HEIGHT, Gosu::Color::RED
+    Gosu.draw_rect x, y, WIDTH, HEIGHT, Gosu::Color.rgb(186,237,145)
   end
 end
 
-class Paddle < GameObject
+class PaddleB < GameObject
   WIDTH = 12
   HEIGHT = 60
 
@@ -250,7 +252,20 @@ class Paddle < GameObject
   end
 
   def draw
-    Gosu.draw_rect x, y, w, h, Gosu::Color.argb(0xff_ffffff)
+    Gosu.draw_rect x, y, w, h, Gosu::Color.rgb(194,244,244)
+  end
+end
+
+class PaddleG < GameObject
+  WIDTH = 12
+  HEIGHT = 60
+
+  def initialize(x, y)
+    super(x, y, WIDTH, HEIGHT)
+  end
+
+  def draw
+    Gosu.draw_rect x, y, w, h, Gosu::Color.rgb(244,194,194)
   end
 end
 

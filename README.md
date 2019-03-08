@@ -38,3 +38,10 @@ The point is to finish something, ship it and move on.
 ## LICENSE
 
 Code released under the MIT License.
+
+## Sources
+
+Game tutorial: http://crumbsofcode.com/creating-version-pong-ruby/
+Forked from: https://github.com/subdigital/pong
+Goal sound : https://notificationsounds.com
+Block sound : https://www.soundjay.com/
