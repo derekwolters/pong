@@ -15,7 +15,7 @@ class GameWindow < Gosu::Window
     @player = PaddleB.new( margin, margin )
     @last_mouse_y = margin
 
-    @enemy = PaddleG.new( self.width - PaddleB::WIDTH - margin, margin)
+    @enemy = PaddleG.new( self.width - PaddleB::WIDTH - margin, margin)    
 
     @ball = Ball.new( 100, 100, { :x => 4, :y => 4 } )
 
@@ -216,13 +216,15 @@ class GameObject
 end
 
 class Ball < GameObject
-  WIDTH = 10
-  HEIGHT = 10
+  WIDTH = 22
+  HEIGHT = 22
 
   attr_reader :v
   def initialize(x, y, v)
     super(x, y, WIDTH, HEIGHT)
     @v = v
+
+    @ball_image = Gosu::Image.new("assets/BallPastel.png")
   end
 
   def update
@@ -238,8 +240,9 @@ class Ball < GameObject
     v[:y] = -v[:y]
   end
 
+  #draw ball
   def draw
-    Gosu.draw_rect x, y, WIDTH, HEIGHT, Gosu::Color.rgb(186,237,145)
+    @ball_image.draw(x, y, 1)
   end
 end
 
@@ -271,3 +274,4 @@ end
 
 window = GameWindow.new
 window.show
+Ball.new.show
