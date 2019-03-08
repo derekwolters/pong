@@ -20,7 +20,7 @@ class GameWindow < Gosu::Window
     @ball = Ball.new( 100, 100, { :x => 4, :y => 4 } )
 
     @score = [0, 0]
-    @font = Gosu::Font.new(20)
+    @font = Gosu::Font.new(50)
     @flash = {}
     @counter = 0
     load_sounds
@@ -144,7 +144,7 @@ class GameWindow < Gosu::Window
   def draw_score
     center_x = self.width / 2
     offset = 15
-    char_width = 10
+    char_width = 25
     z_order = 100    
     colorB = Gosu::Color.rgb(194,244,244)
     colorG = Gosu::Color.rgb(244,194,194)
