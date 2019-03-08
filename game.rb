@@ -136,7 +136,7 @@ class GameWindow < Gosu::Window
     y = 0
     begin
       draw_line center_x, y, color,
-                center_x, y + segment_length, color
+                center_x + 5, y + segment_length, color
       y += segment_length + gap
     end while y < self.height
   end
