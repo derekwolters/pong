@@ -155,8 +155,8 @@ class GameWindow < Gosu::Window
 
   def load_sounds
     path = File.expand_path(File.dirname(__FILE__))
-    @blip_sound = Gosu::Sample.new(File.join(path, "blip.wav"))
-    @plucky_sound = Gosu::Sample.new(File.join(path, "plucky.wav"))
+    @blip_sound = Gosu::Sample.new(File.join(path, "assets/blip.wav"))
+    @plucky_sound = Gosu::Sample.new(File.join(path, "assets/plucky.wav"))
   end
 end
 
@@ -224,7 +224,6 @@ class Ball < GameObject
   def initialize(x, y, v)
     super(x, y, WIDTH, HEIGHT)
     @v = v
-
     @ball_image = Gosu::Image.new("assets/BallPastel.png")
   end
 
