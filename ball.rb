@@ -1,53 +1,34 @@
 require 'gosu'
+require './gameObject'
 
-class Ball < Gosu::Window
-  WIDTH = 640
-  HEIGHT = 480
+class Ball < GameObject
+  WIDTH = 22
+  HEIGHT = 22
 
-  def initialize
-    super WIDTH, HEIGHT
-    self.caption = "Ball bounce"
-
-    @ball_image = Gosu::Image.new("assets/BallBlue.png")
-    @wall_image = Gosu::Image.new("assets/element_green_square.png")
-
-    @ball_x = WIDTH / 2
-    @ball_y = HEIGHT / 2
-
-    @step_x = 3
-    @step_y = 3
+  attr_reader :v
+  def initialize(x, y, v)
+    super(x, y, WIDTH, HEIGHT)
+    @v = v
+    @ball_image = Gosu::Image.new("assets/BallPastel.png")
   end
-  
+
   def update
-    # update ball position and bounce if needed
-    @ball_x += @step_x
-    @ball_y += @step_y
-
-    @step_y *= -1 if @ball_y > (HEIGHT - @ball_image.height - @wall_image.height) || @ball_y < @wall_image.height
-    @step_x *= -1 if @ball_x > (WIDTH - @ball_image.width - @wall_image.width) || @ball_x < @wall_image.width
+    self.x += v[:x]
+    self.y += v[:y]
   end
-  
+
+  def reflect_horizontal
+    v[:x] = -v[:x]
+  end
+
+  def reflect_vertical
+    v[:y] = -v[:y]
+  end
+
+  #draw ball
   def draw
-    # draw walls and ball
-    x = 0
-    while (x < WIDTH) do
-      @wall_image.draw(x, 0, 2)
-      @wall_image.draw(x, HEIGHT - @wall_image.height, 2)
-      x += @wall_image.width
-    end    
-
-    y = @wall_image.height
-
-    while (y < height) do
-      @wall_image.draw(0,y, 2)
-      @wall_image.draw(WIDTH - @wall_image.width, y, 2)
-      y += @wall_image.height
-    end  
-
-   
-
-    @ball_image.draw(@ball_x, @ball_y, 1)
+    @ball_image.draw(x, y, 1)
   end
 end
 
-Ball.new.show
+#ball = Ball.new( 100, 100, { :x => 4, :y => 4 } )
