@@ -30,5 +30,3 @@ class Ball < GameObject
     @ball_image.draw(x, y, 1)
   end
 end
-
-#ball = Ball.new( 100, 100, { :x => 4, :y => 4 } )

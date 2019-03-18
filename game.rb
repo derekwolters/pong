@@ -1,6 +1,6 @@
 require 'gosu'
-require './gameObject'
-require './ball'
+require './ballObject'
+require './paddleObject'
 
 class GameWindow < Gosu::Window
 
@@ -14,10 +14,10 @@ class GameWindow < Gosu::Window
 
     margin = 20
 
-    @player = PaddleB.new( margin, margin )
+    @player = Paddle.new( margin, margin, 194, 244, 244 )
     @last_mouse_y = margin
 
-    @enemy = PaddleG.new( self.width - PaddleB::WIDTH - margin, margin)    
+    @enemy = Paddle.new( self.width - Paddle::WIDTH - margin, margin, 244, 194, 194)    
 
     @ball = Ball.new( 100, 100, { :x => 4, :y => 4 } )
 
@@ -150,7 +150,6 @@ class GameWindow < Gosu::Window
     z_order = 100    
     colorB = Gosu::Color.rgb(194,244,244)
     colorG = Gosu::Color.rgb(244,194,194)
-    #@font.draw score[0].to_s, center_x - offset - char_width, offset, z_order, 1 , 1, colorB
     @font.draw_text(score[0].to_s, center_x - offset - char_width, offset, z_order, 1 , 1, colorB)
     @font.draw_text(score[1].to_s, center_x + offset, offset, z_order, 1 , 1, colorG)
   end
@@ -159,32 +158,6 @@ class GameWindow < Gosu::Window
     path = File.expand_path(File.dirname(__FILE__))
     @blip_sound = Gosu::Sample.new(File.join(path, "assets/blip.wav"))
     @plucky_sound = Gosu::Sample.new(File.join(path, "assets/plucky.wav"))
-  end
-end
-
-class PaddleB < GameObject
-  WIDTH = 12
-  HEIGHT = 60
-
-  def initialize(x, y)
-    super(x, y, WIDTH, HEIGHT)
-  end
-
-  def draw
-    Gosu.draw_rect x, y, w, h, Gosu::Color.rgb(194,244,244)
-  end
-end
-
-class PaddleG < GameObject
-  WIDTH = 12
-  HEIGHT = 60
-
-  def initialize(x, y)
-    super(x, y, WIDTH, HEIGHT)
-  end
-
-  def draw
-    Gosu.draw_rect x, y, w, h, Gosu::Color.rgb(244,194,194)
   end
 end
 
