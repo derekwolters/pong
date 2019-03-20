@@ -2,7 +2,7 @@
 
 A pong game, written in Ruby using Gosu.
 
-![demo](https://raw.githubusercontent.com/subdigital/pong/master/pong.gif)
+![demo](https://raw.githubusercontent.com/derekwolters/pong/master/pong.gif)
 
 ## Running the game
 
