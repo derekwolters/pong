@@ -90,11 +90,11 @@ class GameWindow < Gosu::Window
     pct_move = 0
     distance = @player.center_x - @ball.center_x
     if distance > self.width / 3
-      pct_move = rand(0.005..0.05) #0.05
+      pct_move = rand(0.008..0.05) #0.05
     elsif distance > self.width / 2
       pct_move = rand(0.01..0.1) #0.1
     else
-      pct_move = rand(0.014..0.14) #0.14
+      pct_move = rand(0.02..0.14) #0.14
     end
 
     diff = @ball.center_y - @player.center_y
@@ -108,11 +108,11 @@ class GameWindow < Gosu::Window
     pct_move = 0
     distance = @enemy.center_x - @ball.center_x
     if distance > self.width / 3
-      pct_move = rand(0.04..0.05)
+      pct_move = rand(0.009..0.05)
     elsif distance > self.width / 2
-      pct_move = rand(0.05..0.1) 
+      pct_move = rand(0.01..0.1) 
     else
-      pct_move = rand(0.10..0.14) 
+      pct_move = rand(0.04..0.14) 
     end
 
     diff = @ball.center_y - @enemy.center_y
