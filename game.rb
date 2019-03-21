@@ -10,7 +10,7 @@ class GameWindow < Gosu::Window
 
   def initialize
     super 640, 480
-    self.caption = "Baby Gender Pong"
+    self.caption = "Baby Gender Pong ***First to 10 you'll know then!***"
 
     margin = 20
 
