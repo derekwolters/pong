@@ -6,9 +6,12 @@ class Ball < GameObject
   HEIGHT = 22
 
   attr_reader :v
-  def initialize(x, y, v)
+  def initialize()
     super(x, y, WIDTH, HEIGHT)
-    @v = v
+    @x = 100
+    @y = 100
+    @v = { :x => 4, :y => 4 }
+    #@v = v
     @ball_image = Gosu::Image.new("assets/BallPastel.png")
   end
 

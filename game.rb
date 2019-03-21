@@ -19,7 +19,8 @@ class GameWindow < Gosu::Window
 
     @enemy = Paddle.new( self.width - Paddle::WIDTH - margin, margin, 244, 194, 194)    
 
-    @ball = Ball.new( 100, 100, { :x => 4, :y => 4 } )
+    #@ball = Ball.new( 100, 100, { :x => 4, :y => 4 } )
+    @ball = Ball.new()
 
     @score = [0, 0]
     @font = Gosu::Font.new(50)
@@ -36,7 +37,7 @@ class GameWindow < Gosu::Window
   end
 
   def update
-    player_move
+    auto_player
     ai_move
 
     @ball.update
@@ -57,12 +58,14 @@ class GameWindow < Gosu::Window
       @ball.v[:x] = 4
       flash_side(:left)
       @plucky_sound.play
+      
     elsif @ball.right >= self.width
       @ball.x = @enemy.left
       score[0] += 1
       @ball.v[:x] = -4
       flash_side(:right)
       @plucky_sound.play
+      
     end
 
     @ball.reflect_vertical if @ball.y < 0 || @ball.bottom > self.height
@@ -71,7 +74,7 @@ class GameWindow < Gosu::Window
   def increase_speed
     @ball.v[:x] = @ball.v[:x] * 1.1
   end
-
+ 
   def player_move
     y = mouse_y
     diff = y - @last_mouse_y
@@ -81,18 +84,35 @@ class GameWindow < Gosu::Window
     @player.bottom = self.height if @player.bottom >= self.height
 
     @last_mouse_y = y
+  end
 
+  def auto_player
+    pct_move = 0
+    distance = @player.center_x - @ball.center_x
+    if distance > self.width / 3
+      pct_move = rand(0.005..0.05) #0.05
+    elsif distance > self.width / 2
+      pct_move = rand(0.01..0.1) #0.1
+    else
+      pct_move = rand(0.014..0.14) #0.14
+    end
+
+    diff = @ball.center_y - @player.center_y
+    @player.y += diff * pct_move
+
+    @player.top = 0 if @player.top <= 0
+    @player.bottom = self.height if @player.bottom >= self.height
   end
 
   def ai_move
     pct_move = 0
     distance = @enemy.center_x - @ball.center_x
     if distance > self.width / 3
-      pct_move = 0.05
+      pct_move = rand(0.04..0.05)
     elsif distance > self.width / 2
-      pct_move = 0.1
+      pct_move = rand(0.05..0.1) 
     else
-      pct_move = 0.14
+      pct_move = rand(0.10..0.14) 
     end
 
     diff = @ball.center_y - @enemy.center_y
@@ -163,4 +183,3 @@ end
 
 window = GameWindow.new
 window.show
-Ball.new.show
